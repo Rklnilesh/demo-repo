@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Keep Smiling, My Sunflower</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --night-top:#05060f;
+    --night-mid:#0b1027;
+    --night-low:#16203f;
+    --haze:#2b3a63;
+    --ink:#f2eee6;
+    --soft:#c9cde0;
+    --gold:#ffd772;
+  }
+  *{box-sizing:border-box;}
+  html,body{height:100%;}
+  body{
+    margin:0;
+    background:var(--night-top);
+    color:var(--ink);
+    font-family:"Cormorant Garamond","Iowan Old Style",Georgia,serif;
+    overflow:hidden;
+  }
+  #sky{position:fixed;inset:0;width:100%;height:100%;display:block;}
+  .veil{
+    position:fixed;inset:0;
+    background:
+      radial-gradient(120% 70% at 50% 108%, rgba(90,120,190,.34) 0%, rgba(90,120,190,0) 62%),
+      linear-gradient(180deg, var(--night-top) 0%, var(--night-mid) 48%, var(--night-low) 100%);
+    z-index:-1;
+  }
+  .stage{
+    position:relative;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:flex-start;
+    padding:clamp(28px,7vh,72px) 20px 0;
+  }
+  .words{
+    text-align:center;
+    max-width:760px;
+    opacity:0;
+    animation:rise 2.4s cubic-bezier(.2,.7,.3,1) .5s forwards;
+  }
+  .kicker{
+    font-size:clamp(.72rem,1.7vw,.86rem);
+    letter-spacing:.42em;
+    text-transform:uppercase;
+    color:rgba(255,215,114,.72);
+    margin:0 0 clamp(14px,3vh,26px);
+  }
+  .line{
+    margin:0;
+    font-weight:300;
+    font-size:clamp(1.55rem,4.6vw,3.1rem);
+    line-height:1.34;
+    letter-spacing:.012em;
+    text-shadow:0 0 34px rgba(150,180,255,.22);
+  }
+  .line + .line{margin-top:.22em;}
+  .sunflower{
+    font-family:"Dancing Script",cursive;
+    font-weight:600;
+    color:var(--gold);
+    font-size:1.16em;
+    text-shadow:0 0 26px rgba(255,200,90,.45);
+  }
+  .always{font-style:italic;}
+  .whisper{
+    margin:clamp(20px,4.5vh,38px) auto 0;
+    max-width:38ch;
+    font-size:clamp(.85rem,2.1vw,1.06rem);
+    line-height:1.7;
+    color:rgba(201,205,224,.72);
+    opacity:0;
+    animation:rise 2.6s cubic-bezier(.2,.7,.3,1) 1.7s forwards;
+  }
+  @keyframes rise{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:none;}}
+
+  .scene{
+    position:fixed;
+    left:50%;
+    bottom:0;
+    transform:translateX(-50%);
+    width:min(1100px,140vw);
+    pointer-events:none;
+    opacity:0;
+    animation:rise 3s ease-out 1s forwards;
+  }
+  .scene svg{display:block;width:100%;height:auto;}
+
+  .song{
+    position:fixed;
+    right:clamp(16px,3vw,30px);
+    bottom:clamp(16px,3vw,30px);
+    z-index:3;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:11px 18px;
+    border-radius:999px;
+    border:1px solid rgba(255,215,114,.34);
+    background:rgba(10,14,32,.55);
+    backdrop-filter:blur(8px);
+    color:var(--gold);
+    font-family:inherit;
+    font-size:.95rem;
+    letter-spacing:.08em;
+    cursor:pointer;
+    transition:border-color .3s,background .3s,transform .3s;
+    animation:breathe 3.6s ease-in-out infinite;
+  }
+  .song:hover{border-color:rgba(255,215,114,.7);background:rgba(20,26,52,.7);}
+  .song.playing{animation:none;}
+  @keyframes breathe{
+    0%,100%{box-shadow:0 0 0 0 rgba(255,215,114,.22);}
+    50%{box-shadow:0 0 0 12px rgba(255,215,114,0);}
+  }
+  .note{
+    position:fixed;
+    left:50%;bottom:clamp(16px,3vw,30px);
+    transform:translateX(-50%);
+    z-index:3;
+    font-size:.82rem;
+    letter-spacing:.05em;
+    color:rgba(201,205,224,.62);
+    background:rgba(10,14,32,.6);
+    border:1px solid rgba(201,205,224,.16);
+    border-radius:999px;
+    padding:8px 16px;
+    max-width:min(92vw,520px);
+    text-align:center;
+  }
+  .note[hidden]{display:none;}
+
+  @media (max-width:600px){
+    .stage{justify-content:flex-start;padding-top:clamp(24px,6vh,48px);}
+    .scene{width:170vw;}
+    .song{left:50%;right:auto;transform:translateX(-50%);bottom:18px;}
+    .note{bottom:64px;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .words,.whisper,.scene{animation-duration:.01s;animation-delay:0s;opacity:1;}
+    .song{animation:none;}
+  }
+</style>
+</head>
+<body>
+<div class="veil"></div>
+<canvas id="sky"></canvas>
+
+<main class="stage">
+  <div class="words">
+    <p class="kicker">four months &middot; and every star since</p>
+    <p class="line">Keep smiling, my <span class="sunflower">sunflower</span>.</p>
+    <p class="line">Keep inspiring. Keep hustling.</p>
+    <p class="line always">And I'll always be there by your side.</p>
+  </div>
+  <p class="whisper">You have been my anchor and my light &mdash; the calm I come home to and the reason I reach higher. Tonight the sky is clear, and I only wanted you to know.</p>
+</main>
+
+<div class="scene" aria-hidden="true">
+  <svg viewBox="0 0 400 270" role="presentation">
+    <defs>
+      <radialGradient id="moonGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#ffeec2" stop-opacity=".55"/>
+        <stop offset="55%" stop-color="#ffeec2" stop-opacity=".10"/>
+        <stop offset="100%" stop-color="#ffeec2" stop-opacity="0"/>
+      </radialGradient>
+      <linearGradient id="hill" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#0a0e20"/>
+        <stop offset="100%" stop-color="#05060f"/>
+      </linearGradient>
+      <radialGradient id="horizon" cx="50%" cy="100%" r="60%">
+        <stop offset="0%" stop-color="#7e9ad8" stop-opacity=".30"/>
+        <stop offset="100%" stop-color="#7e9ad8" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+
+    <circle cx="200" cy="250" r="150" fill="url(#horizon)"/>
+    <circle cx="322" cy="66" r="70" fill="url(#moonGlow)"/>
+    <circle cx="322" cy="66" r="15" fill="#fff4d8" opacity=".92"/>
+
+    <path d="M0 246 C 60 232, 118 236, 168 244 C 226 253, 292 240, 400 232 L400 270 L0 270 Z" fill="url(#hill)"/>
+
+    <!-- her -->
+    <g transform="rotate(6 164 248)">
+      <path d="M139 236 q-9 -2 -10 -14 q-1 -12 9 -15 q9 -2 11 9 q2 12 -10 20 Z" fill="#04050d"/>
+      <path d="M190 236 q9 -2 10 -14 q1 -12 -9 -15 q-9 -2 -11 9 q-2 12 10 20 Z" fill="#04050d"/>
+      <path d="M164 154 c14 2, 23 15, 25 36 l3 44 q1 14 -12 14 l-32 0 q-13 0 -12 -14 l3 -44 c2 -21, 11 -34, 25 -36 Z" fill="#04050d"/>
+      <circle cx="164" cy="140" r="16" fill="#04050d"/>
+      <path d="M148 140 a16 16 0 0 1 32 0 c0 17, 7 27, 5 47 q-21 7 -42 0 c-2 -20, 5 -30, 5 -47 Z" fill="#04050d"/>
+      <g opacity=".95">
+        <circle cx="181" cy="133" r="2.5" fill="#ffd772"/>
+        <g fill="#ffd772" opacity=".9">
+          <ellipse cx="181" cy="128" rx="1.5" ry="3"/>
+          <ellipse cx="186" cy="133" rx="3" ry="1.5"/>
+          <ellipse cx="181" cy="138" rx="1.5" ry="3"/>
+          <ellipse cx="176" cy="133" rx="3" ry="1.5"/>
+        </g>
+      </g>
+    </g>
+
+    <!-- him -->
+    <g>
+      <path d="M200 234 q-10 -2 -11 -15 q-1 -13 10 -16 q10 -2 12 10 q2 13 -11 21 Z" fill="#04050d"/>
+      <path d="M265 234 q10 -2 11 -15 q1 -13 -10 -16 q-10 -2 -12 10 q-2 13 11 21 Z" fill="#04050d"/>
+      <path d="M232 148 c17 2, 28 16, 30 40 l4 46 q1 15 -13 15 l-42 0 q-14 0 -13 -15 l4 -46 c2 -24, 13 -38, 30 -40 Z" fill="#04050d"/>
+      <circle cx="232" cy="130" r="18" fill="#04050d"/>
+      <path d="M214 130 a18 18 0 0 1 36 0 q-18 -9 -36 0 Z" fill="#04050d"/>
+    </g>
+  </svg>
+</div>
+
+<button class="song" id="songBtn" type="button">
+  <span id="songIcon">&#9834;</span><span id="songLabel">play our song &mdash; Khat</span>
+</button>
+<p class="note" id="note" hidden></p>
+
+<audio id="audio" src="assets/khat.mp3" loop preload="none"></audio>
+
+<script>
+(function(){
+  var canvas = document.getElementById('sky');
+  var ctx = canvas.getContext('2d');
+  var stars = [], shooting = null, w = 0, h = 0, dpr = 1;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function seed(){
+    var count = Math.round(Math.min(360, (w * h) / 2600));
+    stars = [];
+    for (var i = 0; i < count; i++){
+      var depth = Math.random();
+      stars.push({
+        x: Math.random() * w,
+        y: Math.random() * h * 0.92,
+        r: 0.4 + depth * 1.5,
+        a: 0.25 + Math.random() * 0.6,
+        sp: 0.4 + Math.random() * 1.6,
+        ph: Math.random() * Math.PI * 2,
+        warm: Math.random() > 0.86
+      });
+    }
+  }
+
+  function resize(){
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = window.innerWidth; h = window.innerHeight;
+    canvas.width = Math.floor(w * dpr);
+    canvas.height = Math.floor(h * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    seed();
+  }
+
+  function launch(){
+    var startX = Math.random() * w * 0.7;
+    shooting = { x: startX, y: Math.random() * h * 0.35, len: 0, max: 120 + Math.random() * 140, vx: 5.2, vy: 2.1, life: 0 };
+  }
+
+  function frame(t){
+    ctx.clearRect(0, 0, w, h);
+    for (var i = 0; i < stars.length; i++){
+      var s = stars[i];
+      var tw = reduce ? 1 : 0.55 + 0.45 * Math.sin(t / 900 * s.sp + s.ph);
+      ctx.globalAlpha = Math.max(0, s.a * tw);
+      ctx.fillStyle = s.warm ? '#ffe9bd' : '#eaf0ff';
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fill();
+      if (s.r > 1.5){
+        ctx.globalAlpha = Math.max(0, s.a * tw * 0.18);
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r * 3.6, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+    ctx.globalAlpha = 1;
+
+    if (!reduce){
+      if (!shooting && Math.random() < 0.0035) launch();
+      if (shooting){
+        shooting.life++;
+        shooting.x += shooting.vx;
+        shooting.y += shooting.vy;
+        shooting.len = Math.min(shooting.max, shooting.len + 9);
+        var g = ctx.createLinearGradient(shooting.x, shooting.y, shooting.x - shooting.len, shooting.y - shooting.len * 0.4);
+        g.addColorStop(0, 'rgba(255,255,255,.85)');
+        g.addColorStop(1, 'rgba(255,255,255,0)');
+        ctx.strokeStyle = g;
+        ctx.lineWidth = 1.6;
+        ctx.lineCap = 'round';
+        ctx.beginPath();
+        ctx.moveTo(shooting.x, shooting.y);
+        ctx.lineTo(shooting.x - shooting.len, shooting.y - shooting.len * 0.4);
+        ctx.stroke();
+        if (shooting.x > w + 150 || shooting.y > h * 0.75) shooting = null;
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+  requestAnimationFrame(frame);
+
+  /* our song */
+  var audio = document.getElementById('audio');
+  var btn = document.getElementById('songBtn');
+  var label = document.getElementById('songLabel');
+  var icon = document.getElementById('songIcon');
+  var note = document.getElementById('note');
+
+  function say(msg){ note.textContent = msg; note.hidden = false; }
+
+  audio.addEventListener('error', function(){
+    say('Add your copy of Khat at assets/khat.mp3 and it will play right here.');
+    label.innerHTML = 'our song &mdash; Khat';
+  });
+  audio.addEventListener('playing', function(){
+    btn.classList.add('playing');
+    icon.innerHTML = '&#10074;&#10074;';
+    label.innerHTML = 'Khat &mdash; playing';
+    note.hidden = true;
+  });
+  audio.addEventListener('pause', function(){
+    btn.classList.remove('playing');
+    icon.innerHTML = '&#9834;';
+    label.innerHTML = 'play our song &mdash; Khat';
+  });
+
+  function start(){
+    if (!audio.paused) return;
+    audio.volume = 0;
+    var p = audio.play();
+    if (p && p.catch) p.catch(function(){});
+    var v = 0;
+    var fade = setInterval(function(){
+      v = Math.min(0.65, v + 0.03);
+      try { audio.volume = v; } catch(e){}
+      if (v >= 0.65) clearInterval(fade);
+    }, 90);
+  }
+
+  /* browsers block sound until the page is touched, so the first tap anywhere starts it */
+  ['pointerdown','keydown','touchstart'].forEach(function(evt){
+    document.addEventListener(evt, function once(ev){
+      if (ev && ev.target && ev.target.closest && ev.target.closest('#songBtn')) return;
+      ['pointerdown','keydown','touchstart'].forEach(function(e2){ document.removeEventListener(e2, once); });
+      start();
+    });
+  });
+
+  btn.addEventListener('click', function(){
+    if (audio.paused){ start(); } else { audio.pause(); }
+  });
+})();
+</script>
+</body>
+</html>
