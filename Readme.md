@@ -1,4 +1,4 @@
-# Happy Birthday, My Sunflower
+# Happy Birthday, My Lily
 
 A one-page birthday letter under a clear night sky. Stars twinkle overhead, a
 shooting star crosses now and then, and the two of you sit on the hill watching
@@ -22,7 +22,7 @@ Then visit http://localhost:8000
    real background music the moment she taps "tap to begin", and loops. Without
    that file the page falls back to the Spotify player, which autoplays because
    the tap counts as the gesture browsers require.
-3. **Her name.** Swap "my sunflower" for it anywhere in `index.html`.
+3. **Her name.** Swap "my lilyy" for it anywhere in `index.html`.
 4. **A different recording.** Change the `TRACK` id in the script to any Spotify
    track id.
 
