@@ -28,8 +28,8 @@ no build step and no configuration.
    and leave the default.
 4. Deploy. The link is live in under a minute.
 
-Add `us.jpg` and `assets/khat.mp3` before deploying, or push them afterwards.
-Vercel redeploys on every push, so the live link updates on its own.
+Add `assets/khat.mp3` before deploying, or push it afterwards. Vercel redeploys
+on every push, so the live link updates on its own.
 
 **GitHub Pages**
 
@@ -38,13 +38,11 @@ files, same result.
 
 ## Make it yours
 
-1. **Her photo.** Save it in this folder as `us.jpg`. Until then the frame shows
-   a soft placeholder instead of a broken image.
-2. **The song.** Put your copy of *Khat* at `assets/khat.mp3`. It fades in when
+1. **The song.** Put your copy of *Khat* at `assets/khat.mp3`. It fades in when
    she taps to begin and loops quietly under the whole page. There is no visible
    player, and no link out to anywhere. If the file is missing the page simply
    stays silent.
-3. **Her name.** Swap "my lilyy" for it anywhere in `index.html`.
+2. **Her name.** Swap "my Lilyy" for it anywhere in `index.html`.
 
 ## Why the "tap to begin" screen
 

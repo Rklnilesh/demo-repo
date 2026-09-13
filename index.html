@@ -216,44 +216,6 @@
     text-align:center;
   }
 
-  /* featured photo */
-  .photo-title{
-    font-family:var(--display);
-    font-weight:500;
-    font-variation-settings:'SOFT' 50, 'opsz' 72;
-    font-size:1.8rem;
-    text-align:center;
-    margin-bottom:22px;
-  }
-  .photo-frame{
-    border-radius:20px;
-    overflow:hidden;
-    border:1px solid rgba(255,255,255,0.12);
-    box-shadow:0 18px 40px rgba(0,0,0,0.45), 0 0 0 6px rgba(255,255,255,0.03);
-  }
-  .photo-frame img{display:block; width:100%; height:auto;}
-  .photo-placeholder{
-    aspect-ratio:4/5;
-    max-width:100%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    padding:24px;
-    background:linear-gradient(160deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
-    color:var(--lavender);
-    font-size:0.85rem;
-    line-height:1.7;
-  }
-  .photo-caption{
-    text-align:center;
-    font-family:var(--display);
-    font-style:italic;
-    color:var(--pink);
-    margin-top:16px;
-    font-size:1rem;
-  }
-
   /* tap-to-begin overlay */
   .overlay{
     position:fixed; inset:0;
@@ -329,8 +291,9 @@
   .verse p:last-child{color:var(--lily);}
   .verse-note{
     margin:26px auto 0;
-    max-width:30ch;
+    max-width:34ch;
     text-align:center;
+    text-wrap:balance;
     font-size:0.9rem;
     line-height:1.75;
     color:var(--lavender);
@@ -443,12 +406,10 @@
 
 <!-- ============================================================
   HOW TO CUSTOMIZE (only visible in the code, not on the page):
-  1. Put her photo in this folder as us.jpg. Until you do, the
-     frame shows a soft placeholder instead of a broken image.
-  2. Drop your own copy of the song at assets/khat.mp3 and it plays
+  1. Drop your own copy of the song at assets/khat.mp3 and it plays
      quietly under the whole page, fading in when she taps to begin.
      There is no visible player; the music is just there.
-  3. Swap "my Lilyy" for her name wherever you like.
+  2. Swap "my Lilyy" for her name wherever you like.
 ============================================================= -->
 
 <div class="hero">
@@ -498,14 +459,6 @@
     <p>These four months have been the best four months, and with you I know the rest of life will be the best as well. I hope you achieve everything you set out to do. Be happy, and stay healthy.</p>
     <div class="signoff">I love you the most, my Chummuu.<br>Keep spreading happiness.<br>Keep radiating love.</div>
   </div>
-</section>
-
-<section>
-  <div class="photo-title">you</div>
-  <div class="photo-frame" id="photoFrame">
-    <img id="photo" src="us.jpg" alt="A photo of her">
-  </div>
-  <div class="photo-caption">ever blooming</div>
 </section>
 
 <section class="verse-section">
@@ -634,13 +587,6 @@
     }
   }
   document.getElementById('beginBtn').addEventListener('click', begin);
-
-  /* ---------- her photo ---------- */
-  var photo = document.getElementById('photo');
-  photo.addEventListener('error', function(){
-    document.getElementById('photoFrame').innerHTML =
-      '<div class="photo-placeholder">Save your favourite photo of her in this folder<br>as <strong>us.jpg</strong>, and it will sit right here.</div>';
-  });
 
   /* ---------- petals ---------- */
   if (!reduce){
