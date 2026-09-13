@@ -1,267 +1,461 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Keep Smiling, My Sunflower</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday, My Sunflower</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,500&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --night-top:#05060f;
-    --night-mid:#0b1027;
-    --night-low:#16203f;
-    --haze:#2b3a63;
-    --ink:#f2eee6;
-    --soft:#c9cde0;
-    --gold:#ffd772;
+    --night-deep:#14112b;
+    --night-mid:#241f52;
+    --night-light:#453a7c;
+    --lavender:#cdb6e6;
+    --pink:#f5c7db;
+    --gold:#ffe4a0;
+    --sunflower:#f4c94f;
+    --cream:#fbf3ea;
+    --silhouette:#0a0818;
+    --ground:clamp(64px,10vh,120px);
   }
-  *{box-sizing:border-box;}
-  html,body{height:100%;}
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+
   body{
-    margin:0;
-    background:var(--night-top);
-    color:var(--ink);
-    font-family:"Cormorant Garamond","Iowan Old Style",Georgia,serif;
-    overflow:hidden;
+    background:var(--night-deep);
+    color:var(--cream);
+    font-family:'Quicksand','Avenir Next',system-ui,sans-serif;
+    overflow-x:hidden;
   }
-  #sky{position:fixed;inset:0;width:100%;height:100%;display:block;}
-  .veil{
-    position:fixed;inset:0;
-    background:
-      radial-gradient(120% 70% at 50% 108%, rgba(90,120,190,.34) 0%, rgba(90,120,190,0) 62%),
-      linear-gradient(180deg, var(--night-top) 0%, var(--night-mid) 48%, var(--night-low) 100%);
-    z-index:-1;
-  }
-  .stage{
+
+  /* ---------- HERO ---------- */
+  .hero{
     position:relative;
-    height:100%;
+    min-height:100vh;
     display:flex;
     flex-direction:column;
     align-items:center;
-    justify-content:flex-start;
-    padding:clamp(28px,7vh,72px) 20px 0;
-  }
-  .words{
+    padding:clamp(56px,11vh,120px) 24px 0;
+    background:
+      radial-gradient(ellipse at 50% 12%, var(--night-light) 0%, transparent 58%),
+      linear-gradient(180deg, var(--night-deep) 0%, var(--night-mid) 52%, #1a1538 100%);
+    overflow:hidden;
     text-align:center;
-    max-width:760px;
+  }
+
+  /* the clear night sky itself */
+  #sky{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    z-index:0;
+  }
+
+  .moon{
+    position:absolute;
+    top:8%; right:13%;
+    width:70px; height:70px;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 35%, #fff8e0, var(--gold) 70%);
+    box-shadow:0 0 45px 12px rgba(255,228,160,0.35);
+    z-index:0;
+  }
+
+  .hero-content{
+    position:relative;
+    z-index:2;
     opacity:0;
-    animation:rise 2.4s cubic-bezier(.2,.7,.3,1) .5s forwards;
+    animation:riseIn 1.4s ease-out 0.2s both;
   }
-  .kicker{
-    font-size:clamp(.72rem,1.7vw,.86rem);
-    letter-spacing:.42em;
-    text-transform:uppercase;
-    color:rgba(255,215,114,.72);
-    margin:0 0 clamp(14px,3vh,26px);
+  @keyframes riseIn{
+    from{opacity:0; transform:translateY(18px);}
+    to{opacity:1; transform:translateY(0);}
   }
-  .line{
-    margin:0;
-    font-weight:300;
-    font-size:clamp(1.55rem,4.6vw,3.1rem);
-    line-height:1.34;
-    letter-spacing:.012em;
-    text-shadow:0 0 34px rgba(150,180,255,.22);
+
+  .eyebrow{
+    font-family:'Cormorant Garamond',Georgia,serif;
+    font-style:italic;
+    font-size:1.05rem;
+    color:var(--pink);
+    letter-spacing:0.02em;
   }
-  .line + .line{margin-top:.22em;}
-  .sunflower{
-    font-family:"Dancing Script",cursive;
+
+  h1{
+    font-family:'Cormorant Garamond',Georgia,serif;
     font-weight:600;
-    color:var(--gold);
-    font-size:1.16em;
-    text-shadow:0 0 26px rgba(255,200,90,.45);
+    font-size:clamp(2.05rem, 8.6vw, 3.4rem);
+    letter-spacing:-0.01em;
+    line-height:1.1;
+    margin:10px 0 14px;
+    color:var(--cream);
+    text-wrap:balance;
   }
-  .always{font-style:italic;}
-  .whisper{
-    margin:clamp(20px,4.5vh,38px) auto 0;
-    max-width:38ch;
-    font-size:clamp(.85rem,2.1vw,1.06rem);
-    line-height:1.7;
-    color:rgba(201,205,224,.72);
-    opacity:0;
-    animation:rise 2.6s cubic-bezier(.2,.7,.3,1) 1.7s forwards;
-  }
-  @keyframes rise{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:none;}}
+  h1 span{color:var(--sunflower);}
 
+  .hero-sub{
+    max-width:340px;
+    margin:0 auto;
+    font-size:1rem;
+    line-height:1.6;
+    color:var(--lavender);
+  }
+
+  .scroll-hint{
+    position:relative; z-index:2;
+    margin:clamp(16px,3vh,28px) auto 0;
+    font-size:0.8rem;
+    color:var(--lavender);
+    opacity:0.75;
+    animation:riseIn 1.4s ease-out 0.9s both;
+  }
+  .scroll-hint::after{
+    content:'↓';
+    display:block;
+    margin-top:6px;
+    animation:bob 2s ease-in-out infinite;
+  }
+  @keyframes bob{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(6px);}
+  }
+
+  /* the two of us, watching it */
+  .ground{
+    position:absolute;
+    left:-6%; right:-6%; bottom:0;
+    height:var(--ground);
+    background:linear-gradient(180deg,#251f52 0%,#14112b 88%);
+    border-radius:50% 50% 0 0 / clamp(26px,5vh,56px) clamp(26px,5vh,56px) 0 0;
+    box-shadow:0 -34px 64px -22px rgba(143,127,212,0.34);
+    z-index:1;
+  }
   .scene{
-    position:fixed;
-    left:50%;
-    bottom:0;
-    transform:translateX(-50%);
-    width:min(1100px,140vw);
+    position:relative;
+    z-index:2;
+    width:min(360px,74vw,33vh);
+    margin:auto auto 0;
+    padding-bottom:calc(var(--ground) - 10px);
     pointer-events:none;
-    opacity:0;
-    animation:rise 3s ease-out 1s forwards;
+    animation:riseIn 1.8s ease-out 0.5s both;
   }
-  .scene svg{display:block;width:100%;height:auto;}
+  .scene svg{display:block; width:100%; height:auto;}
 
-  .song{
-    position:fixed;
-    right:clamp(16px,3vw,30px);
-    bottom:clamp(16px,3vw,30px);
-    z-index:3;
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-    padding:11px 18px;
-    border-radius:999px;
-    border:1px solid rgba(255,215,114,.34);
-    background:rgba(10,14,32,.55);
-    backdrop-filter:blur(8px);
-    color:var(--gold);
-    font-family:inherit;
-    font-size:.95rem;
-    letter-spacing:.08em;
-    cursor:pointer;
-    transition:border-color .3s,background .3s,transform .3s;
-    animation:breathe 3.6s ease-in-out infinite;
+  /* ---------- SECTIONS ---------- */
+  section{
+    padding:70px 22px;
+    max-width:480px;
+    margin:0 auto;
+    position:relative;
+    z-index:2;
   }
-  .song:hover{border-color:rgba(255,215,114,.7);background:rgba(20,26,52,.7);}
-  .song.playing{animation:none;}
-  @keyframes breathe{
-    0%,100%{box-shadow:0 0 0 0 rgba(255,215,114,.22);}
-    50%{box-shadow:0 0 0 12px rgba(255,215,114,0);}
-  }
-  .note{
-    position:fixed;
-    left:50%;bottom:clamp(16px,3vw,30px);
-    transform:translateX(-50%);
-    z-index:3;
-    font-size:.82rem;
-    letter-spacing:.05em;
-    color:rgba(201,205,224,.62);
-    background:rgba(10,14,32,.6);
-    border:1px solid rgba(201,205,224,.16);
-    border-radius:999px;
-    padding:8px 16px;
-    max-width:min(92vw,520px);
+
+  .label{
+    font-family:'Cormorant Garamond',Georgia,serif;
+    font-style:italic;
+    color:var(--pink);
+    font-size:1rem;
+    margin-bottom:10px;
     text-align:center;
   }
-  .note[hidden]{display:none;}
+
+  .letter{
+    background:linear-gradient(160deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:18px;
+    padding:34px 26px;
+    backdrop-filter:blur(4px);
+  }
+
+  .letter p{
+    font-size:1.02rem;
+    line-height:1.85;
+    color:var(--cream);
+    margin-bottom:16px;
+  }
+
+  .signoff{
+    font-family:'Cormorant Garamond',Georgia,serif;
+    font-style:italic;
+    font-size:1.35rem;
+    color:var(--sunflower);
+    line-height:1.6;
+    margin-top:22px;
+    text-align:center;
+  }
+
+  /* song */
+  .song-card{text-align:center;}
+  .song-title{
+    font-family:'Cormorant Garamond',Georgia,serif;
+    font-size:1.7rem;
+    margin-bottom:4px;
+    color:var(--cream);
+  }
+  .song-sub{
+    color:var(--lavender);
+    font-size:0.9rem;
+    margin-bottom:20px;
+  }
+  .spotify-wrap{
+    border-radius:14px;
+    overflow:hidden;
+    box-shadow:0 10px 30px rgba(0,0,0,0.35);
+    min-height:1px;
+  }
+  .song-link{
+    display:inline-block;
+    margin-top:14px;
+    color:var(--sunflower);
+    font-size:0.85rem;
+    text-decoration:none;
+    border-bottom:1px solid rgba(244,201,79,0.4);
+    padding-bottom:2px;
+  }
+  .song-link:hover{border-bottom-color:var(--sunflower);}
+  .song-link:focus-visible{outline:2px solid var(--sunflower); outline-offset:4px;}
+
+  /* featured photo */
+  .photo-title{
+    font-family:'Cormorant Garamond',Georgia,serif;
+    font-size:1.9rem;
+    text-align:center;
+    margin-bottom:22px;
+  }
+  .photo-frame{
+    border-radius:20px;
+    overflow:hidden;
+    border:1px solid rgba(255,255,255,0.12);
+    box-shadow:0 18px 40px rgba(0,0,0,0.45), 0 0 0 6px rgba(255,255,255,0.03);
+  }
+  .photo-frame img{display:block; width:100%; height:auto;}
+  .photo-placeholder{
+    aspect-ratio:4/5;
+    max-width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:24px;
+    background:linear-gradient(160deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+    color:var(--lavender);
+    font-size:0.85rem;
+    line-height:1.7;
+  }
+  .photo-caption{
+    text-align:center;
+    font-family:'Cormorant Garamond',Georgia,serif;
+    font-style:italic;
+    color:var(--pink);
+    margin-top:16px;
+    font-size:1rem;
+  }
+
+  /* tap-to-begin overlay */
+  .overlay{
+    position:fixed; inset:0;
+    z-index:50;
+    background:linear-gradient(180deg, var(--night-deep), var(--night-mid));
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:16px;
+    text-align:center;
+    padding:24px;
+    transition:opacity 0.8s ease;
+  }
+  .overlay.hidden{opacity:0; pointer-events:none;}
+  .overlay-title{
+    font-family:'Cormorant Garamond',Georgia,serif;
+    font-size:1.6rem;
+    color:var(--cream);
+  }
+  .overlay-btn{
+    margin-top:10px;
+    padding:14px 34px;
+    border-radius:999px;
+    border:1px solid var(--sunflower);
+    background:rgba(244,201,79,0.1);
+    color:var(--sunflower);
+    font-family:'Quicksand',sans-serif;
+    font-size:0.95rem;
+    letter-spacing:0.02em;
+    cursor:pointer;
+  }
+  .overlay-btn:focus-visible{outline:2px solid var(--cream); outline-offset:3px;}
+
+  /* footer */
+  footer{padding:60px 24px 80px; text-align:center;}
+  .footer-line{
+    font-family:'Cormorant Garamond',Georgia,serif;
+    font-style:italic;
+    color:var(--pink);
+    font-size:1.1rem;
+    margin-bottom:8px;
+  }
+  .footer-sub{color:var(--lavender); font-size:0.8rem; opacity:0.8;}
+
+  /* petals */
+  .petal{
+    position:fixed;
+    top:-20px;
+    z-index:5;
+    pointer-events:none;
+    animation:fall linear infinite;
+    opacity:0.85;
+  }
+  @keyframes fall{
+    to{transform:translateY(110vh) rotate(360deg);}
+  }
 
   @media (max-width:600px){
-    .stage{justify-content:flex-start;padding-top:clamp(24px,6vh,48px);}
-    .scene{width:170vw;}
-    .song{left:50%;right:auto;transform:translateX(-50%);bottom:18px;}
-    .note{bottom:64px;}
+    .moon{top:4.5%; right:7%; width:54px; height:54px;}
+    section{padding:56px 20px;}
   }
+
   @media (prefers-reduced-motion:reduce){
-    .words,.whisper,.scene{animation-duration:.01s;animation-delay:0s;opacity:1;}
-    .song{animation:none;}
+    .hero-content,.scroll-hint,.scene{animation-duration:.01s; animation-delay:0s;}
+    .scroll-hint::after,.petal{animation:none;}
+    .petal{display:none;}
   }
 </style>
 </head>
 <body>
-<div class="veil"></div>
-<canvas id="sky"></canvas>
 
-<main class="stage">
-  <div class="words">
-    <p class="kicker">four months &middot; and every star since</p>
-    <p class="line">Keep smiling, my <span class="sunflower">sunflower</span>.</p>
-    <p class="line">Keep inspiring. Keep hustling.</p>
-    <p class="line always">And I'll always be there by your side.</p>
-  </div>
-  <p class="whisper">You have been my anchor and my light &mdash; the calm I come home to and the reason I reach higher. Tonight the sky is clear, and I only wanted you to know.</p>
-</main>
-
-<div class="scene" aria-hidden="true">
-  <svg viewBox="0 0 400 270" role="presentation">
-    <defs>
-      <radialGradient id="moonGlow" cx="50%" cy="50%" r="50%">
-        <stop offset="0%" stop-color="#ffeec2" stop-opacity=".55"/>
-        <stop offset="55%" stop-color="#ffeec2" stop-opacity=".10"/>
-        <stop offset="100%" stop-color="#ffeec2" stop-opacity="0"/>
-      </radialGradient>
-      <linearGradient id="hill" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#0a0e20"/>
-        <stop offset="100%" stop-color="#05060f"/>
-      </linearGradient>
-      <radialGradient id="horizon" cx="50%" cy="100%" r="60%">
-        <stop offset="0%" stop-color="#7e9ad8" stop-opacity=".30"/>
-        <stop offset="100%" stop-color="#7e9ad8" stop-opacity="0"/>
-      </radialGradient>
-    </defs>
-
-    <circle cx="200" cy="250" r="150" fill="url(#horizon)"/>
-    <circle cx="322" cy="66" r="70" fill="url(#moonGlow)"/>
-    <circle cx="322" cy="66" r="15" fill="#fff4d8" opacity=".92"/>
-
-    <path d="M0 246 C 60 232, 118 236, 168 244 C 226 253, 292 240, 400 232 L400 270 L0 270 Z" fill="url(#hill)"/>
-
-    <!-- her -->
-    <g transform="rotate(6 164 248)">
-      <path d="M139 236 q-9 -2 -10 -14 q-1 -12 9 -15 q9 -2 11 9 q2 12 -10 20 Z" fill="#04050d"/>
-      <path d="M190 236 q9 -2 10 -14 q1 -12 -9 -15 q-9 -2 -11 9 q-2 12 10 20 Z" fill="#04050d"/>
-      <path d="M164 154 c14 2, 23 15, 25 36 l3 44 q1 14 -12 14 l-32 0 q-13 0 -12 -14 l3 -44 c2 -21, 11 -34, 25 -36 Z" fill="#04050d"/>
-      <circle cx="164" cy="140" r="16" fill="#04050d"/>
-      <path d="M148 140 a16 16 0 0 1 32 0 c0 17, 7 27, 5 47 q-21 7 -42 0 c-2 -20, 5 -30, 5 -47 Z" fill="#04050d"/>
-      <g opacity=".95">
-        <circle cx="181" cy="133" r="2.5" fill="#ffd772"/>
-        <g fill="#ffd772" opacity=".9">
-          <ellipse cx="181" cy="128" rx="1.5" ry="3"/>
-          <ellipse cx="186" cy="133" rx="3" ry="1.5"/>
-          <ellipse cx="181" cy="138" rx="1.5" ry="3"/>
-          <ellipse cx="176" cy="133" rx="3" ry="1.5"/>
-        </g>
-      </g>
-    </g>
-
-    <!-- him -->
-    <g>
-      <path d="M200 234 q-10 -2 -11 -15 q-1 -13 10 -16 q10 -2 12 10 q2 13 -11 21 Z" fill="#04050d"/>
-      <path d="M265 234 q10 -2 11 -15 q1 -13 -10 -16 q-10 -2 -12 10 q-2 13 11 21 Z" fill="#04050d"/>
-      <path d="M232 148 c17 2, 28 16, 30 40 l4 46 q1 15 -13 15 l-42 0 q-14 0 -13 -15 l4 -46 c2 -24, 13 -38, 30 -40 Z" fill="#04050d"/>
-      <circle cx="232" cy="130" r="18" fill="#04050d"/>
-      <path d="M214 130 a18 18 0 0 1 36 0 q-18 -9 -36 0 Z" fill="#04050d"/>
-    </g>
-  </svg>
+<div class="overlay" id="overlay">
+  <div class="overlay-title">a little something for you 🌻</div>
+  <button class="overlay-btn" id="beginBtn" type="button">tap to begin</button>
 </div>
 
-<button class="song" id="songBtn" type="button">
-  <span id="songIcon">&#9834;</span><span id="songLabel">play our song &mdash; Khat</span>
-</button>
-<p class="note" id="note" hidden></p>
+<!-- ============================================================
+  HOW TO CUSTOMIZE (only visible in the code, not on the page):
+  1. Put her photo in this folder as us.jpg. Until you do, the
+     frame shows a soft placeholder instead of a broken image.
+  2. Drop your own copy of the song at assets/khat.mp3 and it
+     becomes the real background music, fading in on the first tap.
+     Without it the page falls back to the Spotify player below.
+  3. Swap the Spotify track ID in the script if you want a
+     different version of "Khat".
+  4. Replace "my sunflower" with her name wherever you like.
+============================================================= -->
 
-<audio id="audio" src="assets/khat.mp3" loop preload="none"></audio>
+<div class="hero">
+  <canvas id="sky"></canvas>
+  <div class="moon"></div>
+  <div class="ground" aria-hidden="true"></div>
+
+  <div class="hero-content">
+    <div class="eyebrow">four months, and every day brighter</div>
+    <h1>Happy Birthday,<br>my <span>Sunflower</span> 🌻</h1>
+    <p class="hero-sub">You've anchored me, lit up my darkest corners, and inspired me without even trying. Tonight, under every star up there — this is for you.</p>
+  </div>
+
+  <div class="scroll-hint">keep scrolling</div>
+
+  <div class="scene" aria-hidden="true">
+    <svg viewBox="122 86 160 154" role="presentation">
+
+      <!-- her, leaning in -->
+      <g transform="rotate(6 164 230)">
+        <path d="M139 218 q-9 -2 -10 -14 q-1 -12 9 -15 q9 -2 11 9 q2 12 -10 20 Z" fill="#0a0818"/>
+        <path d="M190 218 q9 -2 10 -14 q1 -12 -9 -15 q-9 -2 -11 9 q-2 12 10 20 Z" fill="#0a0818"/>
+        <path d="M164 136 c14 2, 23 15, 25 36 l3 44 q1 14 -12 14 l-32 0 q-13 0 -12 -14 l3 -44 c2 -21, 11 -34, 25 -36 Z" fill="#0a0818"/>
+        <circle cx="164" cy="122" r="16" fill="#0a0818"/>
+        <path d="M148 122 a16 16 0 0 1 32 0 c0 17, 7 27, 5 47 q-21 7 -42 0 c-2 -20, 5 -30, 5 -47 Z" fill="#0a0818"/>
+        <g transform="translate(182 116)">
+          <g fill="#f4c94f" opacity=".92">
+            <circle cx="0" cy="-4.4" r="2.1"/>
+            <circle cx="3.8" cy="-2.2" r="2.1"/>
+            <circle cx="3.8" cy="2.2" r="2.1"/>
+            <circle cx="0" cy="4.4" r="2.1"/>
+            <circle cx="-3.8" cy="2.2" r="2.1"/>
+            <circle cx="-3.8" cy="-2.2" r="2.1"/>
+          </g>
+          <circle cx="0" cy="0" r="2.4" fill="#8a5a1e"/>
+        </g>
+      </g>
+
+      <!-- him -->
+      <g>
+        <path d="M200 216 q-10 -2 -11 -15 q-1 -13 10 -16 q10 -2 12 10 q2 13 -11 21 Z" fill="#0a0818"/>
+        <path d="M265 216 q10 -2 11 -15 q1 -13 -10 -16 q-10 -2 -12 10 q-2 13 11 21 Z" fill="#0a0818"/>
+        <path d="M232 130 c17 2, 28 16, 30 40 l4 46 q1 15 -13 15 l-42 0 q-14 0 -13 -15 l4 -46 c2 -24, 13 -38, 30 -40 Z" fill="#0a0818"/>
+        <circle cx="232" cy="112" r="18" fill="#0a0818"/>
+        <path d="M214 112 a18 18 0 0 1 36 0 q-18 -9 -36 0 Z" fill="#0a0818"/>
+      </g>
+    </svg>
+  </div>
+</div>
+
+<section>
+  <div class="label">a little letter</div>
+  <div class="letter">
+    <p>In four months, you've become the calm in my chaos — the person who anchors me in every sense of the word. You take care of me in ways you probably don't even notice, and you inspire me just by being exactly who you are.</p>
+    <p>You deserve so much love, more than words can really hold. I want to spend every day trying to match the love you give so freely — to love you as fiercely and as gently as you deserve.</p>
+    <div class="signoff">Keep smiling, my sunflower.<br>Keep inspiring. Keep hustling.<br>And I'll always be right here, by your side.</div>
+  </div>
+</section>
+
+<section class="song-card">
+  <div class="song-title">our song</div>
+  <div class="song-sub">"Khat" — playing this one for you 🎶</div>
+  <div class="spotify-wrap" id="spotifyWrap"></div>
+  <div class="song-sub" id="songNote" style="margin-top:12px;">if it doesn't start on its own, just hit the ▶ play button once</div>
+  <a class="song-link" href="https://open.spotify.com/track/3gixnmepHSsyAuho34rprN" target="_blank" rel="noopener">open Khat in Spotify</a>
+</section>
+
+<section>
+  <div class="photo-title">you 🌻</div>
+  <div class="photo-frame" id="photoFrame">
+    <img id="photo" src="us.jpg" alt="her">
+  </div>
+  <div class="photo-caption">the light in every room you walk into</div>
+</section>
+
+<footer>
+  <div class="footer-line">Happy birthday, my love.</div>
+  <div class="footer-sub">here's to many more nights under the same sky</div>
+</footer>
+
+<audio id="ourSong" src="assets/khat.mp3" loop preload="none"></audio>
 
 <script>
 (function(){
-  var canvas = document.getElementById('sky');
-  var ctx = canvas.getContext('2d');
-  var stars = [], shooting = null, w = 0, h = 0, dpr = 1;
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* ---------- the sky ---------- */
+  var canvas = document.getElementById('sky');
+  var ctx = canvas.getContext('2d');
+  var stars = [], shooting = null, w = 0, h = 0;
+
   function seed(){
-    var count = Math.round(Math.min(360, (w * h) / 2600));
+    var count = Math.round(Math.min(320, (w * h) / 3000));
     stars = [];
     for (var i = 0; i < count; i++){
-      var depth = Math.random();
       stars.push({
         x: Math.random() * w,
-        y: Math.random() * h * 0.92,
-        r: 0.4 + depth * 1.5,
+        y: Math.random() * h * 0.82,
+        r: 0.4 + Math.random() * 1.5,
         a: 0.25 + Math.random() * 0.6,
         sp: 0.4 + Math.random() * 1.6,
         ph: Math.random() * Math.PI * 2,
-        warm: Math.random() > 0.86
+        warm: Math.random() > 0.85
       });
     }
   }
 
   function resize(){
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
-    w = window.innerWidth; h = window.innerHeight;
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var rect = canvas.getBoundingClientRect();
+    w = rect.width; h = rect.height;
     canvas.width = Math.floor(w * dpr);
     canvas.height = Math.floor(h * dpr);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     seed();
-  }
-
-  function launch(){
-    var startX = Math.random() * w * 0.7;
-    shooting = { x: startX, y: Math.random() * h * 0.35, len: 0, max: 120 + Math.random() * 140, vx: 5.2, vy: 2.1, life: 0 };
   }
 
   function frame(t){
@@ -270,7 +464,7 @@
       var s = stars[i];
       var tw = reduce ? 1 : 0.55 + 0.45 * Math.sin(t / 900 * s.sp + s.ph);
       ctx.globalAlpha = Math.max(0, s.a * tw);
-      ctx.fillStyle = s.warm ? '#ffe9bd' : '#eaf0ff';
+      ctx.fillStyle = s.warm ? '#ffe4a0' : '#fbf3ea';
       ctx.beginPath();
       ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
       ctx.fill();
@@ -284,15 +478,16 @@
     ctx.globalAlpha = 1;
 
     if (!reduce){
-      if (!shooting && Math.random() < 0.0035) launch();
+      if (!shooting && Math.random() < 0.004){
+        shooting = { x: Math.random() * w * 0.65, y: Math.random() * h * 0.35, len: 0, max: 110 + Math.random() * 130 };
+      }
       if (shooting){
-        shooting.life++;
-        shooting.x += shooting.vx;
-        shooting.y += shooting.vy;
+        shooting.x += 5.2;
+        shooting.y += 2.1;
         shooting.len = Math.min(shooting.max, shooting.len + 9);
         var g = ctx.createLinearGradient(shooting.x, shooting.y, shooting.x - shooting.len, shooting.y - shooting.len * 0.4);
-        g.addColorStop(0, 'rgba(255,255,255,.85)');
-        g.addColorStop(1, 'rgba(255,255,255,0)');
+        g.addColorStop(0, 'rgba(251,243,234,.9)');
+        g.addColorStop(1, 'rgba(251,243,234,0)');
         ctx.strokeStyle = g;
         ctx.lineWidth = 1.6;
         ctx.lineCap = 'round';
@@ -300,7 +495,7 @@
         ctx.moveTo(shooting.x, shooting.y);
         ctx.lineTo(shooting.x - shooting.len, shooting.y - shooting.len * 0.4);
         ctx.stroke();
-        if (shooting.x > w + 150 || shooting.y > h * 0.75) shooting = null;
+        if (shooting.x > w + 150 || shooting.y > h * 0.8) shooting = null;
       }
     }
     requestAnimationFrame(frame);
@@ -310,57 +505,68 @@
   resize();
   requestAnimationFrame(frame);
 
-  /* our song */
-  var audio = document.getElementById('audio');
-  var btn = document.getElementById('songBtn');
-  var label = document.getElementById('songLabel');
-  var icon = document.getElementById('songIcon');
-  var note = document.getElementById('note');
+  /* ---------- our song ---------- */
+  var audio = document.getElementById('ourSong');
+  var wrap = document.getElementById('spotifyWrap');
+  var note = document.getElementById('songNote');
+  var TRACK = '3gixnmepHSsyAuho34rprN';
+  var placed = false;
 
-  function say(msg){ note.textContent = msg; note.hidden = false; }
-
-  audio.addEventListener('error', function(){
-    say('Add your copy of Khat at assets/khat.mp3 and it will play right here.');
-    label.innerHTML = 'our song &mdash; Khat';
-  });
-  audio.addEventListener('playing', function(){
-    btn.classList.add('playing');
-    icon.innerHTML = '&#10074;&#10074;';
-    label.innerHTML = 'Khat &mdash; playing';
-    note.hidden = true;
-  });
-  audio.addEventListener('pause', function(){
-    btn.classList.remove('playing');
-    icon.innerHTML = '&#9834;';
-    label.innerHTML = 'play our song &mdash; Khat';
-  });
-
-  function start(){
-    if (!audio.paused) return;
-    audio.volume = 0;
-    var p = audio.play();
-    if (p && p.catch) p.catch(function(){});
-    var v = 0;
-    var fade = setInterval(function(){
-      v = Math.min(0.65, v + 0.03);
-      try { audio.volume = v; } catch(e){}
-      if (v >= 0.65) clearInterval(fade);
-    }, 90);
+  function placeSpotify(autoplay){
+    if (placed) return;
+    placed = true;
+    wrap.innerHTML = '<iframe title="Khat on Spotify" style="border-radius:14px" src="https://open.spotify.com/embed/track/' +
+      TRACK + '?utm_source=generator&theme=0' + (autoplay ? '&autoplay=1' : '') +
+      '" width="100%" height="152" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>';
+    if (!autoplay) note.textContent = 'already playing softly in the background 🎶';
   }
 
-  /* browsers block sound until the page is touched, so the first tap anywhere starts it */
-  ['pointerdown','keydown','touchstart'].forEach(function(evt){
-    document.addEventListener(evt, function once(ev){
-      if (ev && ev.target && ev.target.closest && ev.target.closest('#songBtn')) return;
-      ['pointerdown','keydown','touchstart'].forEach(function(e2){ document.removeEventListener(e2, once); });
-      start();
-    });
+  /* the tap is a real user gesture, so the browser lets the music start */
+  function begin(){
+    document.getElementById('overlay').classList.add('hidden');
+    audio.volume = 0;
+    var p;
+    try { p = audio.play(); } catch(e){ p = null; }
+    if (p && p.then){
+      p.then(function(){
+        placeSpotify(false);
+        var v = 0;
+        var fade = setInterval(function(){
+          v = Math.min(0.6, v + 0.03);
+          try { audio.volume = v; } catch(e){}
+          if (v >= 0.6) clearInterval(fade);
+        }, 90);
+      }).catch(function(){ placeSpotify(true); });
+    } else {
+      placeSpotify(true);
+    }
+    setTimeout(function(){ placeSpotify(true); }, 2000);
+  }
+  document.getElementById('beginBtn').addEventListener('click', begin);
+
+  /* ---------- her photo ---------- */
+  var photo = document.getElementById('photo');
+  photo.addEventListener('error', function(){
+    document.getElementById('photoFrame').innerHTML =
+      '<div class="photo-placeholder">save your favourite photo of her<br>in this folder as <strong>us.jpg</strong><br>and it will sit right here</div>';
   });
 
-  btn.addEventListener('click', function(){
-    if (audio.paused){ start(); } else { audio.pause(); }
-  });
+  /* ---------- petals ---------- */
+  if (!reduce){
+    var petals = ['🌻','✨'];
+    for (var j = 0; j < 8; j++){
+      var pt = document.createElement('div');
+      pt.className = 'petal';
+      pt.textContent = petals[Math.floor(Math.random() * petals.length)];
+      pt.style.left = Math.random() * 100 + '%';
+      pt.style.fontSize = (Math.random() * 10 + 12) + 'px';
+      pt.style.animationDuration = (Math.random() * 8 + 10) + 's';
+      pt.style.animationDelay = (Math.random() * 10) + 's';
+      document.body.appendChild(pt);
+    }
+  }
 })();
 </script>
+
 </body>
 </html>
