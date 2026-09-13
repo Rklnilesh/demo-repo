@@ -1,8 +1,8 @@
 # Happy Birthday, My Lily
 
-A one-page birthday letter under a clear night sky. Stars twinkle overhead, a
-shooting star crosses now and then, and the two of you sit on the hill watching
-it. Below the sky: the letter, the song, and her photo.
+A one-page birthday letter under a clear night sky. The stars hold still while
+the page scrolls, and the two of you sit on the hill watching them. It opens on
+that same sky with a single invitation to tap.
 
 ## Run it
 
@@ -18,19 +18,18 @@ Then visit http://localhost:8000
 
 1. **Her photo.** Save it in this folder as `us.jpg`. Until then the frame shows
    a soft placeholder instead of a broken image.
-2. **The song.** Put your own copy of *Khat* at `assets/khat.mp3`. It fades in as
-   real background music the moment she taps "tap to begin", and loops. Without
-   that file the page falls back to the Spotify player, which autoplays because
-   the tap counts as the gesture browsers require.
+2. **The song.** Put your copy of *Khat* at `assets/khat.mp3`. It fades in when
+   she taps to begin and loops quietly under the whole page. There is no visible
+   player, and no link out to anywhere. If the file is missing the page simply
+   stays silent.
 3. **Her name.** Swap "my lilyy" for it anywhere in `index.html`.
-4. **A different recording.** Change the `TRACK` id in the script to any Spotify
-   track id.
 
 ## Why the "tap to begin" screen
 
-Browsers refuse to start audio until someone interacts with the page. The
-overlay turns her first tap into that permission, so the song begins with the
-letter instead of needing a second press.
+Browsers refuse to start audio until someone interacts with the page. That tap
+is the permission, so the music can begin with the letter. It also holds the
+words back until she is ready, so the first thing she sees is just the sky and
+the two of you under it.
 
 ## Files
 

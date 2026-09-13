@@ -26,7 +26,7 @@
   html{scroll-behavior:smooth;}
 
   body{
-    background:var(--night-deep);
+    background:linear-gradient(180deg, var(--night-deep) 0%, var(--night-mid) 38%, #1c1740 68%, var(--night-deep) 100%);
     color:var(--cream);
     font-family:'Quicksand','Avenir Next',system-ui,sans-serif;
     overflow-x:hidden;
@@ -40,20 +40,19 @@
     flex-direction:column;
     align-items:center;
     padding:clamp(56px,11vh,120px) 24px 0;
-    background:
-      radial-gradient(ellipse at 50% 12%, var(--night-light) 0%, transparent 58%),
-      linear-gradient(180deg, var(--night-deep) 0%, var(--night-mid) 52%, #1a1538 100%);
+    background:radial-gradient(ellipse at 50% 12%, rgba(69,58,124,0.62) 0%, transparent 58%);
     overflow:hidden;
     text-align:center;
   }
 
-  /* the clear night sky itself */
+  /* the clear night sky, behind every section */
   #sky{
-    position:absolute;
+    position:fixed;
     inset:0;
     width:100%;
     height:100%;
     z-index:0;
+    pointer-events:none;
   }
 
   .moon{
@@ -188,37 +187,6 @@
     text-align:center;
   }
 
-  /* song */
-  .song-card{text-align:center;}
-  .song-title{
-    font-family:'Cormorant Garamond',Georgia,serif;
-    font-size:1.7rem;
-    margin-bottom:4px;
-    color:var(--cream);
-  }
-  .song-sub{
-    color:var(--lavender);
-    font-size:0.9rem;
-    margin-bottom:20px;
-  }
-  .spotify-wrap{
-    border-radius:14px;
-    overflow:hidden;
-    box-shadow:0 10px 30px rgba(0,0,0,0.35);
-    min-height:1px;
-  }
-  .song-link{
-    display:inline-block;
-    margin-top:14px;
-    color:var(--lily);
-    font-size:0.85rem;
-    text-decoration:none;
-    border-bottom:1px solid rgba(242,169,196,0.4);
-    padding-bottom:2px;
-  }
-  .song-link:hover{border-bottom-color:var(--lily);}
-  .song-link:focus-visible{outline:2px solid var(--lily); outline-offset:4px;}
-
   /* featured photo */
   .photo-title{
     font-family:'Cormorant Garamond',Georgia,serif;
@@ -259,7 +227,7 @@
   .overlay{
     position:fixed; inset:0;
     z-index:50;
-    background:linear-gradient(180deg, var(--night-deep), var(--night-mid));
+    background:radial-gradient(ellipse 62% 34% at 50% 45%, rgba(20,17,43,0.88) 0%, rgba(20,17,43,0.60) 52%, rgba(20,17,43,0.12) 100%);
     display:flex;
     flex-direction:column;
     align-items:center;
@@ -267,9 +235,11 @@
     gap:16px;
     text-align:center;
     padding:24px;
-    transition:opacity 0.8s ease;
+    transition:opacity 0.9s ease;
   }
   .overlay.hidden{opacity:0; pointer-events:none;}
+  .locked .hero-content,
+  .locked .scroll-hint{opacity:0 !important; animation:none !important;}
   .overlay-title{
     font-family:'Cormorant Garamond',Georgia,serif;
     font-size:1.6rem;
@@ -367,6 +337,8 @@
   </symbol>
 </svg>
 
+<script>document.documentElement.classList.add('locked');</script>
+
 <div class="overlay" id="overlay">
   <svg class="lily-ic big" aria-hidden="true"><use href="#lily"/></svg>
   <div class="overlay-title">a little something for you</div>
@@ -377,12 +349,10 @@
   HOW TO CUSTOMIZE (only visible in the code, not on the page):
   1. Put her photo in this folder as us.jpg. Until you do, the
      frame shows a soft placeholder instead of a broken image.
-  2. Drop your own copy of the song at assets/khat.mp3 and it
-     becomes the real background music, fading in on the first tap.
-     Without it the page falls back to the Spotify player below.
-  3. Swap the Spotify track ID in the script if you want a
-     different version of "Khat".
-  4. Swap "my lilyy" for her name wherever you like.
+  2. Drop your own copy of the song at assets/khat.mp3 and it plays
+     quietly under the whole page, fading in when she taps to begin.
+     There is no visible player; the music is just there.
+  3. Swap "my lilyy" for her name wherever you like.
 ============================================================= -->
 
 <div class="hero">
@@ -429,16 +399,9 @@
     <p>My lilyy — ever blooming. My sweetheart, my babydoll, my strength, my inspiration, my best companion. My home.</p>
     <p>I wish you a very happy birthday, and I just want you to know that nubu is always there by your side. No matter what.</p>
     <p>These 4 months have been the best 4 months, and with you I know the rest of life will be the best as well. I hope you achieve all your endeavours. Be happy, be healthy.</p>
-    <div class="signoff">I love you the most, my chummuu.<br>Keep spreading happiness.<br>Keep radiating love.</div>
+    <p>And I will do anything to see you smile.</p>
+    <div class="signoff">I love you the most, my chummuu.<br>Keep spreading happiness.<br>Keep radiating love.<br>Always and forever, pilly.</div>
   </div>
-</section>
-
-<section class="song-card">
-  <div class="song-title">our song</div>
-  <div class="song-sub">"Khat" — playing this one for you 🎶</div>
-  <div class="spotify-wrap" id="spotifyWrap"></div>
-  <div class="song-sub" id="songNote" style="margin-top:12px;">if it doesn't start on its own, just hit the ▶ play button once</div>
-  <a class="song-link" href="https://open.spotify.com/track/3gixnmepHSsyAuho34rprN" target="_blank" rel="noopener">open Khat in Spotify</a>
 </section>
 
 <section>
@@ -471,7 +434,7 @@
     for (var i = 0; i < count; i++){
       stars.push({
         x: Math.random() * w,
-        y: Math.random() * h * 0.82,
+        y: Math.random() * h,
         r: 0.4 + Math.random() * 1.5,
         a: 0.25 + Math.random() * 0.6,
         sp: 0.4 + Math.random() * 1.6,
@@ -538,42 +501,26 @@
   resize();
   requestAnimationFrame(frame);
 
-  /* ---------- our song ---------- */
+  /* ---------- our song, quietly underneath ---------- */
   var audio = document.getElementById('ourSong');
-  var wrap = document.getElementById('spotifyWrap');
-  var note = document.getElementById('songNote');
-  var TRACK = '3gixnmepHSsyAuho34rprN';
-  var placed = false;
-
-  function placeSpotify(autoplay){
-    if (placed) return;
-    placed = true;
-    wrap.innerHTML = '<iframe title="Khat on Spotify" style="border-radius:14px" src="https://open.spotify.com/embed/track/' +
-      TRACK + '?utm_source=generator&theme=0' + (autoplay ? '&autoplay=1' : '') +
-      '" width="100%" height="152" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>';
-    if (!autoplay) note.textContent = 'already playing softly in the background 🎶';
-  }
 
   /* the tap is a real user gesture, so the browser lets the music start */
   function begin(){
     document.getElementById('overlay').classList.add('hidden');
+    document.documentElement.classList.remove('locked');
     audio.volume = 0;
     var p;
     try { p = audio.play(); } catch(e){ p = null; }
     if (p && p.then){
       p.then(function(){
-        placeSpotify(false);
         var v = 0;
         var fade = setInterval(function(){
-          v = Math.min(0.6, v + 0.03);
+          v = Math.min(0.55, v + 0.025);
           try { audio.volume = v; } catch(e){}
-          if (v >= 0.6) clearInterval(fade);
+          if (v >= 0.55) clearInterval(fade);
         }, 90);
-      }).catch(function(){ placeSpotify(true); });
-    } else {
-      placeSpotify(true);
+      }).catch(function(){});
     }
-    setTimeout(function(){ placeSpotify(true); }, 2000);
   }
   document.getElementById('beginBtn').addEventListener('click', begin);
 
