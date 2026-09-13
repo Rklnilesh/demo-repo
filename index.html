@@ -293,6 +293,66 @@
   }
   .footer-sub{color:var(--lavender); font-size:0.8rem; opacity:0.8;}
 
+  /* the lines from our song */
+  .verse-mark{
+    width:34px; height:1px;
+    margin:0 auto 26px;
+    background:linear-gradient(90deg, transparent, rgba(242,169,196,0.5), transparent);
+  }
+  .verse{
+    margin:0 auto;
+    max-width:26ch;
+    font-family:var(--display);
+    font-style:italic;
+    font-weight:400;
+    font-variation-settings:'SOFT' 60, 'opsz' 60;
+    font-size:clamp(1.1rem, 4.4vw, 1.34rem);
+    line-height:1.98;
+    letter-spacing:0.012em;
+    color:var(--cream);
+    text-align:center;
+  }
+  .verse p{margin:0;}
+  .verse p:last-child{color:var(--lily);}
+  .verse-note{
+    margin:26px auto 0;
+    max-width:30ch;
+    text-align:center;
+    font-size:0.9rem;
+    line-height:1.75;
+    color:var(--lavender);
+  }
+
+  /* the closing */
+  .footer-rule{
+    width:38px; height:1px;
+    margin:32px auto 26px;
+    background:rgba(255,255,255,0.14);
+  }
+  .footer-khat{
+    font-family:var(--display);
+    font-style:italic;
+    font-size:1.04rem;
+    line-height:1.75;
+    color:var(--cream);
+    max-width:28ch;
+    margin:0 auto;
+  }
+  .footer-sign{
+    font-family:var(--display);
+    font-style:italic;
+    font-variation-settings:'SOFT' 60, 'opsz' 72;
+    font-size:clamp(1.28rem, 5.2vw, 1.6rem);
+    color:var(--lily);
+    margin-top:12px;
+  }
+  .lily-ic.footer-lily{
+    width:30px; height:30px;
+    margin:24px 0 0;
+    vertical-align:baseline;
+    opacity:0.92;
+  }
+
   .lily-ic{
     width:0.76em; height:0.76em;
     vertical-align:-0.02em;
@@ -434,9 +494,25 @@
   <div class="photo-caption">ever blooming</div>
 </section>
 
+<section class="verse-section">
+  <div class="label">from our song</div>
+  <div class="verse-mark" aria-hidden="true"></div>
+  <blockquote class="verse" lang="hi-Latn">
+    <p>Tere liye mandir jaaun</p>
+    <p>Tere naam ka dia jalaaun</p>
+    <p>Hasta rahe tu chaahe jo ho</p>
+    <p>Teri hasi ko nazar na lage</p>
+  </blockquote>
+  <p class="verse-note">the lines I love the most, and the ones I hold to.</p>
+</section>
+
 <footer>
   <div class="footer-line">Happy birthday, my lilyy.</div>
   <div class="footer-sub">here's to the rest of our life under the same sky</div>
+  <div class="footer-rule" aria-hidden="true"></div>
+  <p class="footer-khat">so here was a small khat to you, from my side.</p>
+  <p class="footer-sign">Love you, my babydoll.</p>
+  <svg class="lily-ic footer-lily" aria-hidden="true"><use href="#lily"/></svg>
 </footer>
 
 <audio id="ourSong" src="assets/khat.mp3" loop preload="none"></audio>
