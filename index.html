@@ -113,6 +113,19 @@
     color:var(--lavender);
   }
 
+  .hero-star{
+    margin:18px auto 0;
+    max-width:36ch;
+    font-family:var(--display);
+    font-style:italic;
+    font-weight:400;
+    font-variation-settings:'SOFT' 60, 'opsz' 40;
+    font-size:clamp(1rem, 3.8vw, 1.16rem);
+    line-height:1.72;
+    letter-spacing:0.01em;
+    color:var(--lily);
+  }
+
   .scroll-hint{
     position:relative; z-index:2;
     margin:clamp(16px,3vh,28px) auto 0;
@@ -333,9 +346,9 @@
     font-family:var(--display);
     font-style:italic;
     font-size:1.04rem;
-    line-height:1.75;
+    line-height:1.78;
     color:var(--cream);
-    max-width:28ch;
+    max-width:34ch;
     margin:0 auto;
   }
   .footer-sign{
@@ -446,7 +459,8 @@
   <div class="hero-content">
     <div class="eyebrow">ever blooming, my sweetheart babydoll</div>
     <h1>Happy Birthday,<br>my <span>Lilyy</span><svg class="lily-ic" aria-hidden="true"><use href="#lily"/></svg></h1>
-    <p class="hero-sub">My strength, my inspiration, my best companion. My home. Tonight, under all of these stars, this one is for you.</p>
+    <p class="hero-sub">My strength, my inspiration, my best companion. My home.</p>
+    <p class="hero-star">To the brightest star down here with me.<br>So glad she isn't up there.</p>
   </div>
 
   <div class="scroll-hint">keep scrolling</div>
@@ -508,9 +522,8 @@
 
 <footer>
   <div class="footer-line">Happy birthday, my Lilyy.</div>
-  <div class="footer-sub">Here's to the rest of our lives under the same sky.</div>
   <div class="footer-rule" aria-hidden="true"></div>
-  <p class="footer-khat">So here's a small khat for you, from my side.</p>
+  <p class="footer-khat">So here's a small khat for you,<br>from my side.</p>
   <p class="footer-sign">Love you, my babydoll.</p>
   <svg class="lily-ic footer-lily" aria-hidden="true"><use href="#lily"/></svg>
 </footer>
