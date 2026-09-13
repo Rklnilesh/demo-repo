@@ -14,6 +14,28 @@ python3 -m http.server 8000
 
 Then visit http://localhost:8000
 
+## Put it online
+
+The site is plain static files at the repo root, so any static host works with
+no build step and no configuration.
+
+**Vercel**
+
+1. Go to vercel.com/new and import `Rklnilesh/demo-repo`.
+2. Framework preset: **Other**. Leave build command and output directory empty.
+3. Under Settings > Git, set the production branch to
+   `claude/love-message-webpage-wbc8c3`, or merge that branch into `main` first
+   and leave the default.
+4. Deploy. The link is live in under a minute.
+
+Add `us.jpg` and `assets/khat.mp3` before deploying, or push them afterwards.
+Vercel redeploys on every push, so the live link updates on its own.
+
+**GitHub Pages**
+
+In the repository Settings > Pages, pick the branch and the root folder. Same
+files, same result.
+
 ## Make it yours
 
 1. **Her photo.** Save it in this folder as `us.jpg`. Until then the frame shows
